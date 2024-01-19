@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 class Solution {
     public String solution(String s, String skip, int index) {
-        String answer = "";
+        StringBuilder answer = new StringBuilder();
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
         for(int i=0; i<skip.length(); i++){
@@ -14,19 +14,15 @@ class Solution {
             }
         }
 
-
-        System.out.println(alphabet);
-        alphabet = alphabet.repeat(5);
-        System.out.println(alphabet);
-        
+        alphabet = alphabet.repeat(23);
 
         for(int i=0; i<s.length(); i++){
             char target = s.charAt(i);
             int targetIdx = alphabet.indexOf(target);
-            answer+=alphabet.charAt(targetIdx+ index);
+            answer.append(alphabet.charAt(targetIdx + index));
         }
 
 
-        return answer;
+        return answer.toString();
     }
 }
