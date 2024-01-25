@@ -4,35 +4,32 @@ import java.util.Map;
 
 class Solution {
     public ArrayList<Integer> solution(String today, String[] terms, String[] privacies) {
-        String[] todayArr = today.split("\\.");
+        String[] todayArr = today.split("\\."); //today = {year, month, day};
 
-        Map<String, String> termMap = new HashMap<>();
+        Map<String, Integer> termMap = new HashMap<>(); //termMap = {term:month}
         for (String str : terms) {
-            termMap.put(str.split(" ")[0], str.split(" ")[1]);
+            termMap.put(str.split(" ")[0], Integer.parseInt(str.split(" ")[1]));
         }
 
-        String[][] privaciesArr = new String[privacies.length][];
+        String[][] privaciesArr = new String[privacies.length][]; //privaciesArr = {{"year, month, day", term},{"year, month, day", term}};
         for (int i = 0; i < privaciesArr.length; i++) {
             privaciesArr[i] = privacies[i].split(" ");
         }
 
 
-        ArrayList<Integer> answer = new ArrayList<>();
+        ArrayList<Integer> answer = new ArrayList<>(); //returnValue
 
         for(int i=0; i<privaciesArr.length; i++){
-            String[] strArr = privaciesArr[i];
-            int leftMonth = 0;
-            String[] privacyDay = strArr[0].split("\\.");
+            String[] strArr = privaciesArr[i]; //strArr = {"year, month, day", term};
+            int leftdays = 0;
+            String[] privacyDay = strArr[0].split("\\."); //privacyDay = {year, month, day}
 
-            leftMonth+=(Integer.parseInt(todayArr[0])-Integer.parseInt(privacyDay[0]))*12;
-            leftMonth+=(Integer.parseInt(todayArr[1])-Integer.parseInt(privacyDay[1]));
+            leftdays+=(Integer.parseInt(todayArr[0])-Integer.parseInt(privacyDay[0]))*336;
+            leftdays+=(Integer.parseInt(todayArr[1])-Integer.parseInt(privacyDay[1]))*28;
+            leftdays+=(Integer.parseInt(todayArr[2])-Integer.parseInt(privacyDay[2]));
 
-            if(leftMonth>Integer.parseInt(termMap.get(strArr[1]))){
+            if(leftdays>=termMap.get(strArr[1])*28){
                 answer.add(i+1);
-            }else if(leftMonth==Integer.parseInt(termMap.get(strArr[1]))){
-                if(Integer.parseInt(todayArr[2])>=Integer.parseInt(privacyDay[2])){
-                    answer.add(i+1);
-                }
             }
 
         }
