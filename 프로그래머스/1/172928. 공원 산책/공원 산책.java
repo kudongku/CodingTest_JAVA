@@ -2,17 +2,17 @@ import java.util.ArrayList;
 
 class Solution {
     public int[] solution(String[] park, String[] routes) {
-        int[] point = getStartPoint(park);
-        int[] parkSize = new int[]{park.length, park[0].length()};
-        ArrayList<int[]> blockPoints = getBlockPoints(park);
+        int[] point = getCharPoint(park, 'S').get(0); // startPoint를 얻는다.
+        int[] parkSize = new int[]{park.length, park[0].length()}; // 파크 사이즈를 얻는다
+        ArrayList<int[]> blockPoints = getCharPoint(park, 'X'); // 파크에 장애물 좌표 리스트를 얻는다.
 
         for (String str : routes) {
             int[] tempPoint = new int[]{point[0], point[1]};
-            boolean isValidToGo = true;
             String direction = str.split(" ")[0];
-            String distance = str.split(" ")[1];
+            int distance = Integer.parseInt(str.split(" ")[1]);
 
-            for (int i = 0; i < Integer.parseInt(distance); i++) {
+            boolean isValidToGo = true;
+            for (int i = 0; i < distance; i++) {
 
                 switch (direction) {
                     case "E" -> tempPoint[1]++;
@@ -42,13 +42,12 @@ class Solution {
                 point[1] = tempPoint[1];
             }
 
-            System.out.println(point[0]+", "+point[1]);
         }
 
         return point;
     }
 
-    private ArrayList<int[]> getBlockPoints(String[] park) {
+    private ArrayList<int[]> getCharPoint(String[] park, char c) {
         ArrayList<int[]> blockPoints = new ArrayList<>();
 
         for (int i = 0; i < park.length; i++) {
@@ -56,7 +55,7 @@ class Solution {
 
             for (int j = 0; j < strToChar.length; j++) {
                 int[] Point = new int[2];
-                if (strToChar[j] == 'X') {
+                if (strToChar[j] == c) {
                     Point[0] = i;
                     Point[1] = j;
                     blockPoints.add(Point);
@@ -68,21 +67,4 @@ class Solution {
         return blockPoints;
     }
 
-    public int[] getStartPoint(String[] park) {
-        int[] startPoint = new int[2];
-
-        for (int i = 0; i < park.length; i++) {
-            char[] strToChar = park[i].toCharArray();
-
-            for (int j = 0; j < strToChar.length; j++) {
-                if (strToChar[j] == 'S') {
-                    startPoint[0] = i;
-                    startPoint[1] = j;
-                    return startPoint;
-                }
-            }
-        }
-
-        return null;
-    }
 }
