@@ -1,20 +1,20 @@
+import java.util.Arrays;
+
 class Solution {
      public String solution(String str) {
-        String result="";
-        String [] blank = str.split(" "); 
-
-        int max, min;
-        max = Integer.parseInt(blank[0]);
-        min = max;
-        for (int i=0; i<blank.length; i++){ 
-            if(Integer.parseInt(blank[i])>max){
-                max = Integer.parseInt(blank[i]);
-            }
-            if(Integer.parseInt(blank[i])<min){
-                min = Integer.parseInt(blank[i]);
-            }
+        String[] arrStr = str.split(" ");
+        int[] arrInt = new int[arrStr.length];
+        int i=0;
+        for(String part : arrStr){
+          arrInt[i] = Integer.parseInt(part);
+          i++;
         }
-        result = min+" "+max;
-        return result;
+
+        StringBuffer sb = new StringBuffer();
+        sb.append(Arrays.stream(arrInt).min().getAsInt());
+        sb.append(" ");
+        sb.append(Arrays.stream(arrInt).max().getAsInt());
+
+        return sb.toString();
     }
 }
