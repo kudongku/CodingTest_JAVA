@@ -1,22 +1,20 @@
 class Solution {
-    public String solution(String s) {
-        String[] numberArr = s.split(" ");
-        int max = Integer.parseInt(numberArr[0]);
-        int min = Integer.parseInt(numberArr[0]);
-        
-        for(String num : numberArr){
-            int number = Integer.parseInt(num);
-            
-            if(number>max){
-                max = number;
-            }
+     public String solution(String str) {
+        String result="";
+        String [] blank = str.split(" "); 
 
-            if(number<min){
-                min = number;
+        int max, min;
+        max = Integer.parseInt(blank[0]);
+        min = max;
+        for (int i=0; i<blank.length; i++){ 
+            if(Integer.parseInt(blank[i])>max){
+                max = Integer.parseInt(blank[i]);
             }
-            
+            if(Integer.parseInt(blank[i])<min){
+                min = Integer.parseInt(blank[i]);
+            }
         }
-        
-        return min + " " + max;
+        result = min+" "+max;
+        return result;
     }
 }
