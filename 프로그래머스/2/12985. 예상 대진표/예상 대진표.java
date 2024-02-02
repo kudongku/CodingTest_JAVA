@@ -4,23 +4,16 @@ class Solution {
 
         while (true) {
 
-            if (a == ((a/2)*2)){
-                a = a/2;
-            } else {
-                a = a/2+1;
-            }
+            a = (a==((a/2)*2))? a/2 : a/2+1;
+            b = (b==((b/2)*2))? b/2 : b/2+1;
 
-            if (b == ((b/2)*2)){
-                b = b/2;
-            } else {
-                b = b/2+1;
-            }
 
             answer++;
 
             if(a==b){
                 return answer;
             }
+
         }
 
     }
