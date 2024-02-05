@@ -1,20 +1,27 @@
-class Solution {
-    public static long solution(int n) {
-        long[] d = new long[n + 1];
-
-        if (n == 1)
-            return 1;
-        if (n == 2)
-            return 2;
-
-        d[0] = 0;
-        d[1] = 1L;
-        d[2] = 2L;
-
-        for (int i = 3; i <= n; i++) {
-            d[i] = (d[i - 1] + d[i - 2]) % 1234567;
-        }
-
-        return d[n];
-    }
-} 
+import java.util.ArrayList;                                                
+                                                                           
+class Solution {                                                           
+    public int solution(int n) {                                           
+        ArrayList<Integer> fibonacciArr = new ArrayList<>();               
+        fibonacciArr.add(0);                                               
+        fibonacciArr.add(1);                                               
+        int index = 1;                                                     
+                                                                           
+        while (index <= n) {                                                
+                                                                           
+            fibonacciArr                                                   
+                    .forEach(i -> i%=1234567);                             
+                                                                           
+            int temp = (fibonacciArr.get(0) + fibonacciArr.get(1))%1234567;
+                  
+                                                                           
+            fibonacciArr.add(temp);                                        
+                                                                           
+            fibonacciArr.remove(0);                                        
+                                                                           
+            index++;                                                       
+        }                                                                  
+                                                                           
+        return fibonacciArr.get(1);                                        
+    }                                                                      
+}          
