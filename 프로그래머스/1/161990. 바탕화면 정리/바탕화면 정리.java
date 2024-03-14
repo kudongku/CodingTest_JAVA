@@ -1,39 +1,37 @@
 class Solution {
     public int[] solution(String[] wallpaper) {
-        int left=127;
-        int right=-1;
-        int top=127;
-        int bottom=-1;
+        int[] answer = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};
 
         for(int i=0; i<wallpaper.length; i++){
-           String str = wallpaper[i];
-           char[] charArr = str.toCharArray();
+            String str = wallpaper[i];
+            char[] charArr = str.toCharArray();
 
-           for(int j=0; j<charArr.length; j++){
-               char c = charArr[j];
+            for(int j=0; j<charArr.length; j++){
+                char c = charArr[j];
 
-               if(c=='#'){
+                if(c=='#'){
 
-                   if(top>i){
-                       top=i;
-                   }
-                   if(bottom<i){
-                       bottom=i;
-                   }
-                   if(left>j){
-                       left=j;
-                   }
-                   if(right<j){
-                       right=j;
-                   }
+                    if(answer[0]>i){
+                        answer[0]=i;
+                    }
+                    if(answer[2]<i){
+                        answer[2]=i;
+                    }
+                    if(answer[1]>j){
+                        answer[1]=j;
+                    }
+                    if(answer[3]<j){
+                        answer[3]=j;
+                    }
 
-               }
+                }
 
-           }
+            }
 
         }
 
-        int[] answer = {top, left, bottom+1, right+1};
+        answer[2]++;
+        answer[3]++;
         return answer;
     }
 }
