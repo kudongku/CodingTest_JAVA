@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.Map;
-
 class Solution {
     public String[] solution(String[] players, String[] callings) {
         Map<Integer, String> rank_player = new HashMap<>(); // key = 등수, value = 플레이어
