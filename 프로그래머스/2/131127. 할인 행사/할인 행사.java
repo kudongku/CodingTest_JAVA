@@ -5,26 +5,19 @@ class Solution {
     public int solution(String[] want, int[] number, String[] discount) {
         int answer = 0;
 
+        // 하루에 한번씩 검증
         for (int i = 0; i < discount.length-9; i++) {
-
-            // TODO: 2/20/24 want와 number 섞어서 Map 만들기
+            // tempMap = {want:number}
             Map<String, Integer> tempMap = new HashMap<>();
-
             for (int j = 0; j < want.length; j++) {
                 tempMap.put(want[j], number[j]);
             }
 
-            // TODO: 2/20/24 i부터 10개를 자름
-
+            // 오늘 할인 제품이 원하는 제품일 경우
             if (tempMap.containsKey(discount[i])) {
-                String[] temp = new String[10];
-
-                for (int k = i, tempPoint = 0; k < i + 10; k++, tempPoint++) {
-                    temp[tempPoint] = discount[k];
-                }
-
-                // TODO: 2/20/24 그 10개가 want를 만족시키는지 확인
-                for (String str : temp) {
+                // 오늘부터 10개만 잘라서 가져옴
+                for (int k=i; k<i+10; k++) {
+                    String str = discount[k];
 
                     if (tempMap.containsKey(str)) {
                         int tempInt = tempMap.get(str);
@@ -34,23 +27,18 @@ class Solution {
 
                 }
 
-                boolean flag = true;
+                answer++;
 
                 for (Integer a : tempMap.values()) {
 
                     if (a != 0) {
-                        flag = false;
+                        answer--;
                         break;
                     }
 
                 }
 
-                if (flag) {
-                    answer++;
-                }
-
             }
-
 
         }
 
