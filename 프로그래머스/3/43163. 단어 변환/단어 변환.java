@@ -10,46 +10,44 @@ class Solution {
         queue.add(new Node(begin, 0));
 
         while (!queue.isEmpty()) {
-            Node node = queue.poll();
-            String word = node.getWord();
-            char[] wordArr = word.toCharArray();
-            int count = node.getCount();
+            Node currentNode = queue.poll();
+            String controlWord = currentNode.getWord();
+            int count = currentNode.getCount();
 
-            if (word.equals(target)) {
+            if (controlWord.equals(target)) {
                 return count;
             }
 
             for (int i = 0; i < arrLength; i++) {
 
-                if (isVisited[i]) {
-                    continue;
-                }
-
-                if (count != 0 && words[i].equals(word)) {
+                if (!isVisited[i] &&
+                    isOneLetterDifferent(words[i], controlWord)
+                ) {
                     isVisited[i] = true;
-                    continue;
-                }
-
-                if (isOneLetterDifferent(words[i], wordArr)) {
                     queue.add(new Node(words[i], count + 1));
                 }
 
             }
-
 
         }
 
         return 0;
     }
 
-    private boolean isOneLetterDifferent(String comparatorWord, char[] controlWordArr) {
+    private boolean isOneLetterDifferent(String comparatorWord, String controlWord) {
         char[] comparatorWordArr = comparatorWord.toCharArray();
+        char[] controlWordArr = controlWord.toCharArray();
         int differenceCount = 0;
 
-        for (int i = 0; i < comparatorWord.length(); i++) {
+        for (int i = 0; i < controlWord.length(); i++) {
 
             if (comparatorWordArr[i] != controlWordArr[i]) {
                 differenceCount++;
+
+                if (differenceCount > 1) {
+                    break;
+                }
+
             }
 
         }
@@ -57,7 +55,7 @@ class Solution {
         return differenceCount == 1;
     }
 
-    class Node {
+    static class Node {
 
         private final String word;
         private final int count;
