@@ -1,34 +1,45 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 class Solution {
+
     public int solution(int[] priorities, int location) {
-        int answer = 0;
+        int count = 0;
+        List<Integer> list = new ArrayList<>();
+        Queue<Integer> queue = new LinkedList<>();
 
-        Queue<Integer> que = new LinkedList<Integer>();
-        for(int i : priorities){
-            que.add(i);
+        for (int i : priorities) {
+            list.add(i);
+            queue.add(i);
         }
 
-        Arrays.sort(priorities);
-        int size = priorities.length-1;
+        list.sort(Collections.reverseOrder());
 
-        while(!que.isEmpty()){
-            Integer i = que.poll();
-            if(i == priorities[size - answer]){
-                answer++;
-                location--;
-                if(location<0)
+        while (!queue.isEmpty()) {
+            int temp = queue.poll();
+            location--;
+
+            if (list.get(count) == temp) {
+                count++;
+
+                if (location < 0) {
                     break;
-            }else{
-                que.add(i);
-                location--;
-                if(location<0)
-                    location=que.size()-1;
+                }
+
+                continue;
             }
+
+            queue.offer(temp);
+
+            if (location < 0) {
+                location = queue.size() - 1;
+            }
+
         }
 
-        return answer;
+        return count;
     }
 }
